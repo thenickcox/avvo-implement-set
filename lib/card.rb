@@ -8,4 +8,5 @@ class Card
     @number = opts[:number]
   end
 
+
 end

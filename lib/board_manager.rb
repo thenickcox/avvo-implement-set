@@ -1,4 +1,4 @@
-require 'set_manager'
+require_relative 'set_manager'
 
 class BoardManager
 
