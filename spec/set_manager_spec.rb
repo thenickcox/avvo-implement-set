@@ -1,7 +1,7 @@
 require 'card'
-require 'game_manager'
+require 'set_manager'
 
-describe GameManager do
+describe SetManager do
 
   describe '#is_set' do
     subject { described_class.new([card_1, card_2, card_3]).is_set? }

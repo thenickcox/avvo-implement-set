@@ -1,4 +1,4 @@
-class GameManager
+class SetManager
 
   def initialize(cards)
     @cards = cards
