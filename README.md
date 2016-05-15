@@ -28,7 +28,7 @@ From the project root, simply run:
 
 `ruby lib/play_game.rb`
 
-The output in `STDOUT` will notify you that the game has ended, the number of sets found through the course of the game, and the individual sets found.
+The output in `STDOUT` will notify you that the game has ended, and will print both the number of sets found throughout the course of the game, as well as the individual sets found.
 
 ## Running the tests
 
