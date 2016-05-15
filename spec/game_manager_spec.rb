@@ -18,7 +18,7 @@ describe GameManager do
 
   describe '#play' do
     let(:game) { GameManager.new }
-    let(:draw_amount)   { 3 }
+    let(:draw_amount) { 3 }
     it 'ends the game if there are no more cards' do
       expect(game).to receive(:end_game)
       game.play
@@ -33,4 +33,3 @@ describe GameManager do
     end
   end
 end
-

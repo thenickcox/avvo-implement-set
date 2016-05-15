@@ -1,10 +1,11 @@
+# The SetManager takes an array of cards
+# and decides whether or not they are a set.
 class SetManager
-
   def initialize(cards)
     @cards = cards
   end
 
-  def is_set?
+  def set?
     set = false
     %i(color shape shading number).each do |attr|
       unique_attrs = @cards.collect { |card| card.send(attr) }.uniq.length
@@ -12,5 +13,4 @@ class SetManager
     end
     set
   end
-
 end

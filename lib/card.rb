@@ -1,3 +1,6 @@
+# The Card class represents the cards in the SET
+# game with four orthogonal attributes: color,
+# shape, shading, and number.
 class Card
   attr_accessor :color, :shape, :shading, :number
 
@@ -7,6 +10,4 @@ class Card
     @shading = opts[:shading]
     @number = opts[:number]
   end
-
-
 end

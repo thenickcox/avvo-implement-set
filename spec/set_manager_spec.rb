@@ -2,9 +2,10 @@ require 'card'
 require 'set_manager'
 
 describe SetManager do
+  describe '#set?' do
+    subject { described_class.new([card_1, card_2, card_3]).set? }
 
-  describe '#is_set' do
-    subject { described_class.new([card_1, card_2, card_3]).is_set? }
+    # rubocop:disable Metrics/LineLength
     context 'set based on similarity' do
       context 'all same color, but other attrs mixed' do
         let(:color)  { 'red' }

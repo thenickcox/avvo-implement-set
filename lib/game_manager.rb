@@ -3,6 +3,9 @@ require_relative 'board_manager'
 require_relative 'card'
 require_relative 'set_formatter'
 
+# The GameManager is responsible for game play. It
+# deals the initial hand, subsequent hands, and decides
+# when the game is over.
 class GameManager
   attr_reader :total_sets, :deal_count
   attr_accessor :deck, :board
@@ -25,11 +28,10 @@ class GameManager
     if found_set.is_a?(Array)
       @total_sets << found_set
       found_set.each { |card| @board.delete(card) }
-      return play
     else
       deal(DRAW_AMOUNT)
-      return play
     end
+    play
   end
 
   private
@@ -39,7 +41,7 @@ class GameManager
     puts "Number of sets: #{@total_sets.length}\n"
     puts "Sets: \n"
     @total_sets.each_with_index do |set, i|
-      puts "Set #{i+1}\n"
+      puts "Set #{i + 1}\n"
       SetFormatter.new(set).format
     end
   end
@@ -51,5 +53,4 @@ class GameManager
       @deck.delete(card)
     end
   end
-
 end
