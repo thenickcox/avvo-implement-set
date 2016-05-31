@@ -32,6 +32,6 @@ The output in `STDOUT` will notify you that the game has ended, and will print b
 
 ## Running the tests
 
-From the project root, simply run:
+From the project root, simply run `rake`. This will run both the specs and `rubocop`.
 
-`rspec`
+To just run the specs, run `rspec`. To just run Rubocop, run `rubocop`.
