@@ -29,7 +29,7 @@ describe GameManager do
     end
     it 'adds a found set to the total sets' do
       game.play
-      expect(game.total_sets.length).to be > 1
+      expect(game.total_sets.length).to be_between(22, 25)
     end
   end
 end

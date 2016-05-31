@@ -4,8 +4,8 @@ require_relative 'card'
 require_relative 'set_formatter'
 
 # The GameManager is responsible for game play. It
-# deals the initial hand, subsequent hands, and decides
-# when the game is over.
+# deals the hands. When the game is over, control is
+# passed to the Game Notification Manager.
 class GameManager
   attr_reader :total_sets, :deal_count
   attr_accessor :deck, :board
@@ -23,9 +23,9 @@ class GameManager
   end
 
   def play
-    return end_game if @deck.length.zero?
+    return end_game if @deck.count.zero?
     found_set = BoardManager.new(@board).find_set
-    if found_set.is_a?(Array)
+    if found_set
       @total_sets << found_set
       found_set.each { |card| @board.delete(card) }
     else
