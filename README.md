@@ -4,8 +4,7 @@ Greetings, Avvo engineering team! Enclosed, please find my submission for the co
 
 Thank you so much for your time in reviewing this code, and I look forward to meeting with you in person!
 
-Sincerely,
-Nick
+Sincerely,<br>Nick
 
 ## Requirements
 
