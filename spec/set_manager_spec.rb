@@ -6,77 +6,43 @@ describe SetManager do
     subject { described_class.new([card_1, card_2, card_3]).set? }
 
     # rubocop:disable Metrics/LineLength
-    context 'set based on similarity' do
-      context 'all same color, but other attrs mixed' do
-        let(:color)  { 'red' }
-        let(:card_1) { Card.new(color: color, shape: 'diamond', shading: 'solid', number: 1) }
-        let(:card_2) { Card.new(color: color, shape: 'diamond', shading: 'empty', number: 1) }
-        let(:card_3) { Card.new(color: color, shape: 'squiggle', shading: 'solid', number: 2) }
+    context 'set' do
+      context 'three of each attribute' do
+        let(:card_1) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 1) }
+        let(:card_2) { Card.new(color: 'green', shape: 'oval', shading: 'empty', number: 2) }
+        let(:card_3) { Card.new(color: 'purple', shape: 'squiggle', shading: 'striped', number: 3) }
         it 'returns true' do
           expect(subject).to eq(true)
         end
       end
-      context 'all same shape, but other attrs mixed' do
+      context 'one of one attribute (color); three of other attributes' do
         let(:card_1) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 1) }
-        let(:card_2) { Card.new(color: 'purple', shape: 'diamond', shading: 'empty', number: 1) }
-        let(:card_3) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 2) }
+        let(:card_2) { Card.new(color: 'red', shape: 'oval', shading: 'empty', number: 2) }
+        let(:card_3) { Card.new(color: 'red', shape: 'squiggle', shading: 'striped', number: 3) }
         it 'returns true' do
           expect(subject).to eq(true)
         end
       end
-      context 'all same shading, but other attrs mixed' do
+      context 'one of two attributes (color, shape), three of other attributes' do
         let(:card_1) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 1) }
-        let(:card_2) { Card.new(color: 'purple', shape: 'diamond', shading: 'solid', number: 1) }
-        let(:card_3) { Card.new(color: 'red', shape: 'oval', shading: 'solid', number: 2) }
+        let(:card_2) { Card.new(color: 'red', shape: 'diamond', shading: 'empty', number: 2) }
+        let(:card_3) { Card.new(color: 'red', shape: 'diamond', shading: 'striped', number: 3) }
         it 'returns true' do
           expect(subject).to eq(true)
         end
       end
-      context 'all same number, but other attrs mixed' do
+      context 'one of three attributes (color, shape, shading), three different numbers' do
         let(:card_1) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 1) }
-        let(:card_2) { Card.new(color: 'purple', shape: 'oval', shading: 'empty', number: 1) }
-        let(:card_3) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 1) }
-        it 'returns true' do
-          expect(subject).to eq(true)
-        end
-      end
-    end
-    context 'set based on difference' do
-      context 'all different colors, but other attrs mixed' do
-        let(:card_1) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 1) }
-        let(:card_2) { Card.new(color: 'green', shape: 'diamond', shading: 'empty', number: 1) }
-        let(:card_3) { Card.new(color: 'purple', shape: 'squiggle', shading: 'solid', number: 2) }
-        it 'returns true' do
-          expect(subject).to eq(true)
-        end
-      end
-      context 'all different shapes, but other attrs mixed' do
-        let(:card_1) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 1) }
-        let(:card_2) { Card.new(color: 'purple', shape: 'squiggle', shading: 'empty', number: 1) }
-        let(:card_3) { Card.new(color: 'red', shape: 'oval', shading: 'solid', number: 2) }
-        it 'returns true' do
-          expect(subject).to eq(true)
-        end
-      end
-      context 'all different shading, but other attrs mixed' do
-        let(:card_1) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 1) }
-        let(:card_2) { Card.new(color: 'purple', shape: 'diamond', shading: 'empty', number: 1) }
-        let(:card_3) { Card.new(color: 'red', shape: 'oval', shading: 'striped', number: 2) }
-        it 'returns true' do
-          expect(subject).to eq(true)
-        end
-      end
-      context 'all different numbers, but other attrs mixed' do
-        let(:card_1) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 1) }
-        let(:card_2) { Card.new(color: 'purple', shape: 'oval', shading: 'empty', number: 2) }
+        let(:card_2) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 2) }
         let(:card_3) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 3) }
         it 'returns true' do
           expect(subject).to eq(true)
         end
       end
     end
-    context 'not a set' do
-      context 'each attr has two of one attribute and one of another' do
+
+    context 'not a set (any attribute has two the same)' do
+      context 'each card has two of one attribute and one of another' do
         let(:card_1) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 1) }
         let(:card_2) { Card.new(color: 'green', shape: 'diamond', shading: 'empty', number: 1) }
         let(:card_3) { Card.new(color: 'green', shape: 'squiggle', shading: 'solid', number: 2) }
@@ -84,7 +50,7 @@ describe SetManager do
           expect(subject).to eq(false)
         end
       end
-      context 'all different shapes, but other attrs mixed' do
+      context 'two colors, three shadings, numbers, and shapes' do
         let(:card_1) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 1) }
         let(:card_2) { Card.new(color: 'purple', shape: 'diamond', shading: 'empty', number: 1) }
         let(:card_3) { Card.new(color: 'red', shape: 'oval', shading: 'solid', number: 2) }
@@ -92,19 +58,19 @@ describe SetManager do
           expect(subject).to eq(false)
         end
       end
-      context 'all different shading, but other attrs mixed' do
+      context 'one color and shading, three numbers, but two shapes' do
         let(:card_1) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 1) }
-        let(:card_2) { Card.new(color: 'purple', shape: 'diamond', shading: 'empty', number: 1) }
-        let(:card_3) { Card.new(color: 'red', shape: 'oval', shading: 'empty', number: 2) }
-        it 'returns false' do
+        let(:card_2) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 2) }
+        let(:card_3) { Card.new(color: 'red', shape: 'squiggle', shading: 'solid', number: 3) }
+        it 'returns true' do
           expect(subject).to eq(false)
         end
       end
-      context 'all different numbers, but other attrs mixed' do
+      context 'one color, one shape, three numbers, but two shadings' do
         let(:card_1) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 1) }
-        let(:card_2) { Card.new(color: 'purple', shape: 'oval', shading: 'empty', number: 3) }
+        let(:card_2) { Card.new(color: 'red', shape: 'diamond', shading: 'empty', number: 2) }
         let(:card_3) { Card.new(color: 'red', shape: 'diamond', shading: 'solid', number: 3) }
-        it 'returns false' do
+        it 'returns true' do
           expect(subject).to eq(false)
         end
       end

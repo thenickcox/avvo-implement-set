@@ -6,11 +6,10 @@ class SetManager
   end
 
   def set?
-    set = false
-    %i(color shape shading number).each do |attr|
-      unique_attrs = @cards.collect { |card| card.send(attr) }.uniq.length
-      set = true if unique_attrs == 1 || unique_attrs == 3
+    attrs = %i(color shape shading number).collect do |attr|
+      @cards.collect { |card| card.send(attr) }.uniq.length
     end
-    set
+    return false if attrs.uniq.include?(2)
+    true
   end
 end

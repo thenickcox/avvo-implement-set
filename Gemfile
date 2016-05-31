@@ -1,3 +1,4 @@
-# ruby '2.3.0'
-ruby '2.1.2'
+source 'https://rubygems.org'
+
+ruby '2.2.0'
 gem 'rspec'
