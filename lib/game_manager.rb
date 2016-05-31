@@ -23,18 +23,20 @@ class GameManager
   end
 
   def play
-    return ::GameNotificationManager.new(@total_sets).end_game if @deck.count.zero?
-    found_set = BoardManager.new(@board).find_set
-    if found_set
-      @total_sets << found_set
-      found_set.each { |card| @board.delete(card) }
-    else
-      deal(DRAW_AMOUNT)
+    if @deck.count.zero?
+      return ::GameNotificationManager.new(@total_sets).end_game
     end
+    found_set = BoardManager.new(@board).find_set
+    found_set ? handle_found_set(found_set) : deal(DRAW_AMOUNT)
     play
   end
 
   private
+
+  def handle_found_set(set)
+    @total_sets << set
+    set.each { |card| @board.delete(card) }
+  end
 
   def deal(num_cards)
     @deal_count += 1
