@@ -1,7 +1,7 @@
 require 'yaml'
 require_relative 'board_manager'
 require_relative 'card'
-require_relative 'set_formatter'
+require_relative 'game_notification_manager'
 
 # The GameManager is responsible for game play. It
 # deals the hands. When the game is over, control is
@@ -23,7 +23,7 @@ class GameManager
   end
 
   def play
-    return end_game if @deck.count.zero?
+    return ::GameNotificationManager.new(@total_sets).end_game if @deck.count.zero?
     found_set = BoardManager.new(@board).find_set
     if found_set
       @total_sets << found_set
@@ -35,16 +35,6 @@ class GameManager
   end
 
   private
-
-  def end_game
-    puts "Game over!\n"
-    puts "Number of sets: #{@total_sets.length}\n"
-    puts "Sets: \n"
-    @total_sets.each_with_index do |set, i|
-      puts "Set #{i + 1}\n"
-      SetFormatter.new(set).format
-    end
-  end
 
   def deal(num_cards)
     @deal_count += 1

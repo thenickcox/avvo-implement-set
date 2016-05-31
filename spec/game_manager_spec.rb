@@ -1,4 +1,5 @@
 require 'game_manager'
+require 'game_notification_manager'
 require 'card'
 
 describe GameManager do
@@ -20,7 +21,7 @@ describe GameManager do
     let(:game) { GameManager.new }
     let(:draw_amount) { 3 }
     it 'ends the game if there are no more cards' do
-      expect(game).to receive(:end_game)
+      expect_any_instance_of(GameNotificationManager).to receive(:end_game)
       game.play
     end
     it 'deals 3 more cards if no matches' do

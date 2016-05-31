@@ -1,5 +1,5 @@
 # The SetFormatter creates more human-readable
-# set output for the game ending.
+# set output to stdout.
 class SetFormatter
   def initialize(set)
     @set = set
@@ -12,6 +12,5 @@ class SetFormatter
         "Color: #{card.color}, Shading: #{card.shading}"
     end
     puts formatted_output.join("\n")
-    puts "\n"
   end
 end
